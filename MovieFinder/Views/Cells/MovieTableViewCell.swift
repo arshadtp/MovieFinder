@@ -41,11 +41,13 @@ class MovieTableViewCell: UITableViewCell {
 		summaryLabel.text = viewModel.summary
 		dateLabel.text = viewModel.releaseDate
 		
-		if let url = viewModel.imageURL {
-			posterImageView.sd_setImage(with: url, completed: nil)
-		}
-		else {
-			posterImageView.image = UIImage()
+		DispatchQueue.main.async { [weak self] in
+			if let url = viewModel.imageURL {
+				self?.posterImageView.sd_setImage(with: url, completed: nil)
+			}
+			else {
+				self?.posterImageView.image = UIImage()
+			}
 		}
 	}
 

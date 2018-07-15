@@ -10,31 +10,6 @@ import Foundation
 import Alamofire
 import ObjectMapper
 
-// --------------------------------
-// MARK: - API Response Model Class
-// --------------------------------
-
-//class APIResponse: Mappable {
-//
-//	// Properties
-//	var code: Int?
-//	var message: String?
-//	var data: Any?
-//
-//	// Init
-//	required init?(map: Map) {
-//		code    = 0
-//		message = ""
-//	}
-//
-//	// Mapping method
-//	func mapping(map: Map) {
-//		code    <- map["code"]
-//		message <- map["message"]
-//		data    <- map["data"]
-//	}
-//}
-
 /// Request Type Protocol
 protocol RequestTypeProtocol  {
 	

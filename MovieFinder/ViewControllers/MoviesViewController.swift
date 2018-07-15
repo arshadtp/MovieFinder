@@ -13,7 +13,7 @@ class MoviesViewController: UIViewController {
 	// ----------------------
 	// MARK: - Variables
 	// ----------------------
-	private var viewModel: MovieListViewModel!
+	private var viewModel = MovieListViewModel()
 	
 	@IBOutlet weak var tableView: UITableView!
 	// ----------------------
@@ -37,20 +37,24 @@ class MoviesViewController: UIViewController {
 	// ----------------------
 	func searchMovies()  {
 		
-		let request = MovieRequestType.movieSearch(query: "batman", page: 1)
-		MovieFinderWebService().request(type: request) { [unowned self](response, error) in
-			
-			if let error = error {
-				debugPrint(error)
-			} else if let response = response as? MovieList {
-				debugPrint(response)
-				self.viewModel = MovieListViewModel.init(from: response)
-				self.tableView.reloadData()
-			}
+		viewModel.retrieveMovie(name: "batman") { [unowned self](success, error) in
+			self.tableView.reloadData()
 		}
+		
+//		let request = MovieRequestType.movieSearch(query: "batman", page: 1)
+//		MovieFinderWebService().request(type: request) { [unowned self](response, error) in
+//
+//			if let error = error {
+//				debugPrint(error)
+//			} else if let response = response as? MovieList {
+//				debugPrint(response)
+//				self.viewModel = MovieListViewModel.init(from: response)
+//				self.tableView.reloadData()
+//			}
+//		}
 	}
 	
-	func loadMore()  {
+	func loadMoreIfNeeded()  {
 		
 	}
 
@@ -72,7 +76,7 @@ extension MoviesViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-		return viewModel == nil ? 0 :  viewModel.numberOfRows
+		return viewModel.numberOfRows
 	}
 	
 	
