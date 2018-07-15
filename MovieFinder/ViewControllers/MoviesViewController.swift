@@ -59,7 +59,14 @@ class MoviesViewController: UIViewController {
 // ----------------------
 // MARK: - Tableview DataSource
 // ----------------------
+extension MoviesViewController: MovieTableViewCellDelegate {
 
+	func contentDidChange(cell: MovieTableViewCell) {
+		tableView.beginUpdates()
+		tableView.endUpdates()
+	}
+
+}
 extension MoviesViewController: UITableViewDataSource {
 	
 	
@@ -73,6 +80,7 @@ extension MoviesViewController: UITableViewDataSource {
 		let cell            = tableView.dequeueReusableCell(withIdentifier: CellReuseIdentifier.movieTableViewCell, for: indexPath) as! MovieTableViewCell
 		cell.selectionStyle = .none
 		cell.loadData(viewModel.movieDetailForIndexPath(indexPath))
+		cell.delegate = self
 		return cell
 	}
 	

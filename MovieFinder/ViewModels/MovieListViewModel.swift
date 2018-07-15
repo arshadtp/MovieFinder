@@ -13,13 +13,13 @@ final class MovieListViewModel {
 	let totalResult: Int
 	let totalPages: Int
 	var currentPage: Int = 1
-	private var movies = [MovieModel]()
+	private var movies = [MovieViewModel]()
 	
 	init(from movieList: MovieList) {
 		totalResult = movieList.totalPages ?? 0
 		totalPages = movieList.totalPages ?? 0
 		if let movies = movieList.movies {
-			self.movies = movies
+			self.movies = movies.map { return MovieViewModel.init(from: $0)}
 		}
 	}
 	
@@ -27,7 +27,7 @@ final class MovieListViewModel {
 		return movies.count
 	}
 	
-	func movieDetailForIndexPath(_ indexPath: IndexPath) -> MovieModel {
+	func movieDetailForIndexPath(_ indexPath: IndexPath) -> MovieViewModel {
 		return movies[indexPath.row]
 	}
 }

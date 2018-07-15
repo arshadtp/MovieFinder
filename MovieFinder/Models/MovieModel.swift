@@ -47,6 +47,8 @@ class MovieModel: Mappable {
 	// Properties
 	var title: String?
 	var overview: String?
+	var relaseDateString: String?
+	var posterPath: String?
 	
 	public required init?(map: Map) {
 		
@@ -56,5 +58,7 @@ class MovieModel: Mappable {
 	public func mapping(map: Map) {
 		title    <- map["title"]
 		overview <- map["overview"]
+		relaseDateString <- map["release_date"]
+		posterPath <- map["poster_path"]
 	}
 }

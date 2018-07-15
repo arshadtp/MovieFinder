@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol MovieTableViewCellDelegate: class {
+	func contentDidChange(cell: MovieTableViewCell)
+}
+
 class MovieTableViewCell: UITableViewCell {
 
-	private var viewModel: MovieModel!
+	private var viewModel: MovieViewModel!
+	weak var delegate:MovieTableViewCellDelegate?
 	// ----------------------
 	// MARK: - Outlets
 	// ----------------------
@@ -30,9 +35,31 @@ class MovieTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 	
-	func loadData(_ viewModel: MovieModel)  {
-		nameLabel.text = viewModel.title
-		summaryLabel.text = viewModel.overview
+//	override func prepareForReuse() {
+//		posterImageView.image = nil
+//	}
+	
+	func loadData(_ viewModel: MovieViewModel)  {
+		
+		nameLabel.text = viewModel.name
+		summaryLabel.text = viewModel.summary
+		dateLabel.text = viewModel.releaseDate
+		
+		if let url = viewModel.imageURL {
+			DispatchQueue.global().async { [weak self] in
+				let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+				DispatchQueue.main.async {
+					if let weakSelf = self {
+						if data != nil {
+							weakSelf.posterImageView.image = UIImage(data:data!)
+						}else{
+//							weakSelf.posterImageView.image = UIImage()
+						}
+						weakSelf.delegate?.contentDidChange(cell: weakSelf)
+					}
+				}
+			}
+		}
 	}
 
 }

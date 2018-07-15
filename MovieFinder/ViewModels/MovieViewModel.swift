@@ -10,6 +10,13 @@ import Foundation
 
 final class MovieViewModel {
 	
+	lazy var imageBaseURL:URL = {
+		
+		guard let url = URL.init(string: URLConstant.movieImageBaseURL + MovieImageSize.large) else {
+			fatalError("Please configure image base URL")
+		}
+		return url
+	}()
 	var imageURL: URL?
 	var name: String?
 	var releaseDate: String?
@@ -18,5 +25,10 @@ final class MovieViewModel {
 	init(from movie: MovieModel) {
 		name = movie.title
 		summary = movie.overview
+		releaseDate = movie.relaseDateString
+		if let imagePath = movie.posterPath {
+			imageURL = imageBaseURL.appendingPathComponent(imagePath)
+			debugPrint(imageURL)
+		}
 	}
 }
