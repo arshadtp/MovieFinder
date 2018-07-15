@@ -6,7 +6,8 @@ target 'MovieFinder' do
   use_frameworks!
 	pod 'Alamofire', '~> 4.7'
 	pod 'ObjectMapper', '~> 3.3'
-	
+	pod 'SDWebImage', '~> 4.0'
+
   # Pods for MovieFinder
 
   target 'MovieFinderTests' do

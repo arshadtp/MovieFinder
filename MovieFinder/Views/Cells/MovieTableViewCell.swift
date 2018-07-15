@@ -35,10 +35,6 @@ class MovieTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 	
-//	override func prepareForReuse() {
-//		posterImageView.image = nil
-//	}
-	
 	func loadData(_ viewModel: MovieViewModel)  {
 		
 		nameLabel.text = viewModel.name
@@ -46,19 +42,10 @@ class MovieTableViewCell: UITableViewCell {
 		dateLabel.text = viewModel.releaseDate
 		
 		if let url = viewModel.imageURL {
-			DispatchQueue.global().async { [weak self] in
-				let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-				DispatchQueue.main.async {
-					if let weakSelf = self {
-						if data != nil {
-							weakSelf.posterImageView.image = UIImage(data:data!)
-						}else{
-//							weakSelf.posterImageView.image = UIImage()
-						}
-						weakSelf.delegate?.contentDidChange(cell: weakSelf)
-					}
-				}
-			}
+			posterImageView.sd_setImage(with: url, completed: nil)
+		}
+		else {
+			posterImageView.image = UIImage()
 		}
 	}
 

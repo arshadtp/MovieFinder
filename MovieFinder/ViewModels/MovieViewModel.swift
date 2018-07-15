@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SDWebImage
 
 final class MovieViewModel {
 	
@@ -17,6 +18,7 @@ final class MovieViewModel {
 		}
 		return url
 	}()
+	
 	var imageURL: URL?
 	var name: String?
 	var releaseDate: String?
@@ -30,5 +32,6 @@ final class MovieViewModel {
 			imageURL = imageBaseURL.appendingPathComponent(imagePath)
 			debugPrint(imageURL)
 		}
+	
 	}
 }
