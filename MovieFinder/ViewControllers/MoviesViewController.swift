@@ -8,7 +8,7 @@
 
 import UIKit
 import ObjectMapper
-class ViewController: UIViewController {
+class MoviesViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -30,6 +30,32 @@ class ViewController: UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 
+	
 
 }
 
+// ----------------------
+// MARK: - Tableview DataSource
+// ----------------------
+
+extension MoviesViewController: UITableViewDataSource {
+	
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return 1
+	}
+	
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell            = tableView.dequeueReusableCell(withIdentifier: CellReuseIdentifier.movieTableViewCell, for: indexPath) as! MovieTableViewCell
+		cell.selectionStyle = .none
+		
+		return cell
+	}
+	
+	
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+	}
+
+	
+}
