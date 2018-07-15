@@ -10,7 +10,16 @@ import UIKit
 
 class MovieTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
+	private var viewModel: MovieModel!
+	// ----------------------
+	// MARK: - Outlets
+	// ----------------------
+
+	@IBOutlet weak var posterImageView: UIImageView!
+	@IBOutlet weak var nameLabel: UILabel!
+	@IBOutlet weak var dateLabel: UILabel!
+	@IBOutlet weak var summaryLabel: UILabel!
+	override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
@@ -20,5 +29,10 @@ class MovieTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+	
+	func loadData(_ viewModel: MovieModel)  {
+		nameLabel.text = viewModel.title
+		summaryLabel.text = viewModel.overview
+	}
 
 }
