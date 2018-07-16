@@ -28,8 +28,7 @@ class MoviesViewController: UIViewController {
 		super.viewDidLoad()
     
 		tableView.rowHeight = UITableViewAutomaticDimension
-		searchMovies()
-    
+		
     // Setup the Search Controller
     searchController.searchResultsUpdater = self
     if #available(iOS 9.1, *) {
@@ -70,16 +69,13 @@ class MoviesViewController: UIViewController {
 	// ----------------------
 	// MARK: - API Helpers
 	// ----------------------
-	func searchMovies()  {
+	func searchMovies(_ name: String?)  {
 		
-		viewModel.retrieveMovie(name: "batman") { [unowned self](success, error) in
+		viewModel.retrieveMovie(name: name) { [unowned self](success, error) in
 			self.tableView.reloadData()
 		}
 	}
 	
-	func loadMoreIfNeeded()  {
-		
-	}
 
 }
 
@@ -119,8 +115,12 @@ extension MoviesViewController: UITableViewDataSource {
 
 extension MoviesViewController: UISearchBarDelegate {
   // MARK: - UISearchBar Delegate
-  func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-  }
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		searchMovies(searchBar.text)
+		searchController.dismiss(animated: true, completion: nil)
+		
+	}
+	
 }
 
 extension MoviesViewController: UISearchResultsUpdating {

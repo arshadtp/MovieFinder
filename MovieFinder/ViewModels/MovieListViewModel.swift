@@ -21,15 +21,15 @@ final class MovieListViewModel {
 	private var name: String?
 	private lazy var isLoading = {return  AtomicType(false)}()
 	
-//	init(from movieList: MovieList) {
-//		totalResult = movieList.totalPages ?? 0
-//		totalPages = movieList.totalPages ?? 0
-//		if let movies = movieList.movies {
-//			self.movies += movies.map { return MovieViewModel.init(from: $0)}
-//		}
-//	}
 	init() {
 		
+	}
+	
+	func clearModel()  {
+		totalResult = 0
+		totalPages = 0
+		currentPage = 0
+		movies.removeAll()
 	}
 	
 	var numberOfRows: Int {
@@ -47,12 +47,44 @@ final class MovieListViewModel {
 	func retrieveMovie(name: String? ,_ completionBlock: @escaping RetrieveMovieCompletionBlock) {
 		retrieveUsersCompletionBlock = completionBlock
 		self.name = name
-		loadMovies(name: name, page: 1)
+		MovieFinderWebService().cancelAllRequests()
+		loadMovies(name: name, page: 1) { (response, error) in
+			if let error = error {
+				debugPrint(error)
+				DispatchQueue.main.async {
+					self.retrieveUsersCompletionBlock?(false, error)
+				}
+			} else if let response = response as? MovieList {
+				debugPrint(response)
+				DispatchQueue.global().async {
+					self.clearModel()
+					self.configureModel(from: response)
+					DispatchQueue.main.async {
+						self.retrieveUsersCompletionBlock?(true, nil)
+					}
+				}
+			}
+
+		}
 	}
 	
 	private func loadMoreIfNeeded() {
 		if currentPage < totalPages, !isLoading.val {
-			loadMovies(name: name, page: currentPage+1)
+			
+			loadMovies(name: name, page: currentPage+1) { (response, error) in
+				if let error = error {
+					DispatchQueue.main.async {
+						self.retrieveUsersCompletionBlock?(false, error)
+					}
+				} else if let response = response as? MovieList {
+					DispatchQueue.global().async {
+						self.configureModel(from: response)
+						DispatchQueue.main.async {
+							self.retrieveUsersCompletionBlock?(true, nil)
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -77,21 +109,12 @@ private extension MovieListViewModel {
 		
 	}
 	
-	func loadMovies(name: String?, page:Int)  {
+	func loadMovies(name: String?, page:Int, _ completionBlock: ((_ response:APIResponse?, _ error:APIError?) -> Void)?)  {
 		isLoading.val = true
 		let request = MovieRequestType.movieSearch(query: name, page: page)
 		MovieFinderWebService().request(type: request) { [unowned self](response, error) in
-			DispatchQueue.main.async {
-				if let error = error {
-					debugPrint(error)
-					self.retrieveUsersCompletionBlock?(false, error)
-				} else if let response = response as? MovieList {
-					debugPrint(response)
-					self.configureModel(from: response)
-					self.retrieveUsersCompletionBlock?(true, nil)
-				}
+				completionBlock?(response,error)
 				self.isLoading.val = false
-			}
 		}
 
 	}
