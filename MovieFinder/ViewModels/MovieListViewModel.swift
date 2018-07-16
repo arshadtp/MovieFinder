@@ -18,7 +18,7 @@ final class MovieListViewModel {
 	
 	private var movies = [MovieViewModel]()
 	private var retrieveUsersCompletionBlock: RetrieveMovieCompletionBlock?
-	private var name: String?
+	private var name: String!
 	private lazy var isLoading = {return  AtomicType(false)}()
 	
 	init() {
@@ -44,7 +44,7 @@ final class MovieListViewModel {
 	}
 	
 	
-	func retrieveMovie(name: String? ,_ completionBlock: @escaping RetrieveMovieCompletionBlock) {
+	func retrieveMovie(name: String ,_ completionBlock: @escaping RetrieveMovieCompletionBlock) {
 		retrieveUsersCompletionBlock = completionBlock
 		self.name = name
 		MovieFinderWebService().cancelAllRequests()
@@ -109,7 +109,7 @@ private extension MovieListViewModel {
 		
 	}
 	
-	func loadMovies(name: String?, page:Int, _ completionBlock: ((_ response:APIResponse?, _ error:APIError?) -> Void)?)  {
+	func loadMovies(name: String, page:Int, _ completionBlock: ((_ response:APIResponse?, _ error:APIError?) -> Void)?)  {
 		isLoading.val = true
 		let request = MovieRequestType.movieSearch(query: name, page: page)
 		MovieFinderWebService().request(type: request) { [unowned self](response, error) in

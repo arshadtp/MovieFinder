@@ -12,7 +12,7 @@ import ObjectMapper
 
 enum MovieRequestType: RequestTypeProtocol {
 	
-	case movieSearch(query: String?, page: Int)
+	case movieSearch(query: String, page: Int)
 	
 	func getDataProvider() -> RequestDataProviderProtocol {
 		return MovieRequestDataProvider()
@@ -60,7 +60,7 @@ struct MovieRequestDataProvider: RequestDataProviderProtocol {
 		switch type {
 			
 		case .movieSearch(let query, let page):
-			return ["query" : query ?? "", "page" : page, "api_key": "2696829a81b1b5827d515ff121700838"]
+			return ["query" : query, "page" : page, "api_key": "2696829a81b1b5827d515ff121700838"]
 		}
 	}
 }

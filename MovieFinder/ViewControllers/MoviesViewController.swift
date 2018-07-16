@@ -69,10 +69,13 @@ class MoviesViewController: UIViewController {
 	// ----------------------
 	// MARK: - API Helpers
 	// ----------------------
-	func searchMovies(_ name: String?)  {
+	func searchMovies(_ name: String)  {
 		
 		viewModel.retrieveMovie(name: name) { [unowned self](success, error) in
-			self.tableView.reloadData()
+			if success {
+				MovieCacheManager.addToCache(name: name)
+				self.tableView.reloadData()
+			}
 		}
 	}
 	
@@ -116,7 +119,9 @@ extension MoviesViewController: UITableViewDataSource {
 extension MoviesViewController: UISearchBarDelegate {
   // MARK: - UISearchBar Delegate
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-		searchMovies(searchBar.text)
+		if let text = searchBar.text {
+			searchMovies(text)
+		}
 		searchController.dismiss(animated: true, completion: nil)
 		
 	}

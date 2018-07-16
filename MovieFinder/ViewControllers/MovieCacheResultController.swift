@@ -9,7 +9,9 @@
 import UIKit
 
 class MovieCacheResultController: UITableViewController {
-
+	
+	private var caches: [String]!
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +22,11 @@ class MovieCacheResultController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		caches = MovieCacheManager.caches.reversed()
+		tableView.reloadData()
+	}
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -34,7 +41,7 @@ class MovieCacheResultController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return caches.count
     }
 
   
@@ -42,7 +49,7 @@ class MovieCacheResultController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = "Cache"
+        cell.textLabel?.text = caches[indexPath.row]
         return cell
     }
   
