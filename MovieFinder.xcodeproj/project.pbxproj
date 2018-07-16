@@ -27,6 +27,7 @@
 		5373C49820FBBE0C00501BC9 /* AtomicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373C49720FBBE0C00501BC9 /* AtomicType.swift */; };
 		8758E76F2213AF111C6B9915 /* Pods_MovieFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB12F78E09664A85E109704C /* Pods_MovieFinderTests.framework */; };
 		DE0B25E11EEFFB119D98B567 /* Pods_MovieFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5F9CA141AD672F8078B4A39 /* Pods_MovieFinder.framework */; };
+		EF7A18BE20FCBCCE0098B94A /* MovieCacheResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7A18BD20FCBCCE0098B94A /* MovieCacheResultController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		681164AA156310229F56BBA6 /* Pods-MovieFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieFinderTests/Pods-MovieFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A5F9CA141AD672F8078B4A39 /* Pods_MovieFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7B85F1F737D3E289EAF8EFB /* Pods_MovieFinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieFinderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF7A18BD20FCBCCE0098B94A /* MovieCacheResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCacheResultController.swift; sourceTree = "<group>"; };
 		FB12F78E09664A85E109704C /* Pods_MovieFinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieFinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				5339695420F9D93300D44FD9 /* MoviesViewController.swift */,
+				EF7A18BD20FCBCCE0098B94A /* MovieCacheResultController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				5373C49620FB808B00501BC9 /* APIConstants.swift in Sources */,
 				5373C49420FB73AA00501BC9 /* MovieViewModel.swift in Sources */,
 				5339698420F9DE8600D44FD9 /* RequestDataProvider.swift in Sources */,
+				EF7A18BE20FCBCCE0098B94A /* MovieCacheResultController.swift in Sources */,
 				5373C48C20FB6A4300501BC9 /* MovieTableViewCell.swift in Sources */,
 				5339698620F9E1DD00D44FD9 /* MovieFinderWebService.swift in Sources */,
 				5339695520F9D93300D44FD9 /* MoviesViewController.swift in Sources */,

@@ -16,17 +16,52 @@ class MoviesViewController: UIViewController {
 	private var viewModel = MovieListViewModel()
 	
 	@IBOutlet weak var tableView: UITableView!
+  lazy var searchController = {
+    return UISearchController(searchResultsController: self.storyboard?.instantiateViewController(withIdentifier: "MovieCacheResultController"))
+  } ()
+
 	// ----------------------
 	// MARK: - Life Cycle
 	// ----------------------
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+    
 		tableView.rowHeight = UITableViewAutomaticDimension
 		searchMovies()
+    
+    // Setup the Search Controller
+    searchController.searchResultsUpdater = self
+    if #available(iOS 9.1, *) {
+      searchController.obscuresBackgroundDuringPresentation = false
+    } else {
+      // Fallback on earlier versions
+    }
+    searchController.searchBar.placeholder = "Search Movies"
+    if #available(iOS 11.0, *) {
+      navigationItem.searchController = searchController
+    } else {
+      // Fallback on earlier versions
+    }
+    definesPresentationContext = true
+    
+    searchController.searchBar.delegate = self
+    searchController.hidesNavigationBarDuringPresentation = true
+    searchController.becomeFirstResponder()
+    
 		// Do any additional setup after loading the view, typically from a nib.
 	}
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if #available(iOS 11.0, *) {
+      navigationItem.hidesSearchBarWhenScrolling = true
+
+    } else {
+      // Fallback on earlier versions
+    }
+  }
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
@@ -40,18 +75,6 @@ class MoviesViewController: UIViewController {
 		viewModel.retrieveMovie(name: "batman") { [unowned self](success, error) in
 			self.tableView.reloadData()
 		}
-		
-//		let request = MovieRequestType.movieSearch(query: "batman", page: 1)
-//		MovieFinderWebService().request(type: request) { [unowned self](response, error) in
-//
-//			if let error = error {
-//				debugPrint(error)
-//			} else if let response = response as? MovieList {
-//				debugPrint(response)
-//				self.viewModel = MovieListViewModel.init(from: response)
-//				self.tableView.reloadData()
-//			}
-//		}
 	}
 	
 	func loadMoreIfNeeded()  {
@@ -91,6 +114,18 @@ extension MoviesViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 	}
-
 	
+}
+
+extension MoviesViewController: UISearchBarDelegate {
+  // MARK: - UISearchBar Delegate
+  func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+  }
+}
+
+extension MoviesViewController: UISearchResultsUpdating {
+  // MARK: - UISearchResultsUpdating Delegate
+  func updateSearchResults(for searchController: UISearchController) {
+    searchController.searchResultsController?.view.isHidden = false
+  }
 }

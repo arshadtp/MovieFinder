@@ -65,6 +65,7 @@ class MovieFinderWebService {
 				}
 			}
 			catch {
+        debugPrint("Request failed with error: \(error)")
 //				callback(Result.failure(error))
 			}
 		case .failure(let error):
