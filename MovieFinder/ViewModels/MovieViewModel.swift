@@ -9,20 +9,21 @@
 import Foundation
 import SDWebImage
 
-final class MovieViewModel {
+final class MovieViewModel: MovieTableViewCellDisplayable {
 	
-	lazy var imageBaseURL:URL = {
-		
+	
+	/// Lazy var to store image base URL, and fail if URL is not configured correctly
+	private (set) lazy var imageBaseURL:URL = {
 		guard let url = URL.init(string: URLConstant.movieImageBaseURL + MovieImageSize.large) else {
 			fatalError("Please configure image base URL")
 		}
 		return url
 	}()
 	
-	var imageURL: URL?
-	var name: String?
-	var releaseDate: String?
-	var summary: String?
+	private (set) var imageURL: URL?
+	private (set) var name: String?
+	private (set) var releaseDate: String?
+	private (set) var summary: String?
 	
 	init(from movie: MovieModel) {
 		name = movie.title
@@ -30,8 +31,6 @@ final class MovieViewModel {
 		releaseDate = movie.relaseDateString
 		if let imagePath = movie.posterPath {
 			imageURL = imageBaseURL.appendingPathComponent(imagePath)
-			debugPrint(imageURL)
 		}
-	
 	}
 }

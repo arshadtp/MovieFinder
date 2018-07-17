@@ -9,17 +9,17 @@
 import UIKit
 import ObjectMapper
 
-typealias SearchMovieCompletionBlock = (_ response: [MovieViewModel]?, _ error: Error?) -> Void
+typealias SearchMovieCompletionBlock = (_ response: [MovieTableViewCellDisplayable]?, _ error: Error?) -> Void
 
 protocol MoviesViewControllerDataSource {
-  
+	
   var currentPage: Int { get }
   var numberOfRows: Int {get}
 	
-	func movieDetailForIndexPath(_ index: Int) -> MovieViewModel?
+	func movieDetailForIndexPath(_ index: Int) -> MovieTableViewCellDisplayable?
 	func searchMovie(name: String, page:Int, _ completionBlock: @escaping SearchMovieCompletionBlock)
 	func checkAndLoadNextPage(name: String, page:Int,_ completionBlock: @escaping SearchMovieCompletionBlock)
-	func updateDataSourceArray(with array: [MovieViewModel]?, byClearingExistingValues shouldClear: Bool)
+	func updateDataSourceArray(with array: [MovieTableViewCellDisplayable]?, byClearingExistingValues shouldClear: Bool)
 }
 class MoviesViewController: UIViewController {
 

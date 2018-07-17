@@ -8,9 +8,17 @@
 
 import UIKit
 
+protocol MovieTableViewCellDisplayable {
+	
+	var imageURL: URL? {get}
+	var name: String? {get}
+	var releaseDate: String? {get}
+	var summary: String? {get}
+
+}
 class MovieTableViewCell: UITableViewCell {
 
-	private var viewModel: MovieViewModel!
+	private var viewModel: MovieTableViewCellDisplayable!
 	// ----------------------
 	// MARK: - Outlets
 	// ----------------------
@@ -19,18 +27,9 @@ class MovieTableViewCell: UITableViewCell {
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var dateLabel: UILabel!
 	@IBOutlet weak var summaryLabel: UILabel!
-	override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 	
-	func loadData(_ viewModel: MovieViewModel)  {
+	func loadData(_ viewModel: MovieTableViewCellDisplayable)  {
 		
 		nameLabel.text = viewModel.name
 		summaryLabel.text = viewModel.summary
