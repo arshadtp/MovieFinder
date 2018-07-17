@@ -8,14 +8,9 @@
 
 import UIKit
 
-protocol MovieTableViewCellDelegate: class {
-	func contentDidChange(cell: MovieTableViewCell)
-}
-
 class MovieTableViewCell: UITableViewCell {
 
 	private var viewModel: MovieViewModel!
-	weak var delegate:MovieTableViewCellDelegate?
 	// ----------------------
 	// MARK: - Outlets
 	// ----------------------

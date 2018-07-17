@@ -12,7 +12,7 @@ import ObjectMapper
 
 class MovieFinderWebService {
 	
-	private var alamofireManager = Alamofire.SessionManager.default
+	private static var alamofireManager = Alamofire.SessionManager.default
 
 	/// Create a webservice request for given type.
 	///
@@ -27,12 +27,12 @@ class MovieFinderWebService {
 				debugPrint(requestURL)
 				let parameters = type.params()
 				debugPrint(parameters ?? "Empty Parameter")
-				let request = alamofireManager.request(requestURL,
+				let request = MovieFinderWebService.alamofireManager.request(requestURL,
 																							 method: method,
 																							 parameters: parameters,
 																							 encoding: URLEncoding.default,
 																							 headers: nil)
-				alamofireManager.session.configuration.timeoutIntervalForRequest = 10
+				MovieFinderWebService.alamofireManager.session.configuration.timeoutIntervalForRequest = 10
 				request.responseData(completionHandler: { response in
 					
 
@@ -76,8 +76,8 @@ class MovieFinderWebService {
 	}
 	
 	/// Cancell all webservice requests
-	public func cancelAllRequests() {
-		alamofireManager.session.getAllTasks { (dataTask) in
+	public class func cancelAllRequests() {
+		MovieFinderWebService.alamofireManager.session.getAllTasks { (dataTask) in
 			dataTask.forEach { $0.cancel() }
 		}
 	}
