@@ -159,6 +159,12 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate {
       loadNextPage()
     }
   }
+  
+  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    if let cell = cell as? MovieTableViewCell {
+      cell.cancelImageDownLoad()
+    }
+  }
 }
 
 

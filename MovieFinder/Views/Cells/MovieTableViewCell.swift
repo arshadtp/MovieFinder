@@ -28,13 +28,21 @@ class MovieTableViewCell: UITableViewCell {
 	@IBOutlet weak var dateLabel: UILabel!
 	@IBOutlet weak var summaryLabel: UILabel!
 
+  override func prepareForReuse() {
+    self.posterImageView.sd_cancelCurrentImageLoad()
+  }
 	
+  func cancelImageDownLoad()  {
+    if self.posterImageView != nil {
+      self.posterImageView.sd_cancelCurrentImageLoad()
+    }
+  }
+  
 	func loadData(_ viewModel: MovieTableViewCellDisplayable)  {
 		
 		nameLabel.text = viewModel.name
 		summaryLabel.text = viewModel.summary
 		dateLabel.text = viewModel.releaseDate
-		
 		DispatchQueue.main.async { [weak self] in
 			if let url = viewModel.imageURL {
 				self?.posterImageView.sd_setImage(with: url, completed: nil)
