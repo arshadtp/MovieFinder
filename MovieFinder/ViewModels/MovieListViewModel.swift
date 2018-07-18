@@ -17,7 +17,7 @@ final class MovieListViewModel {
 	
 	private (set) var currentPage: Int = defaultPageNumber
 	
-	private (set) var movies = [MovieViewModel]()
+	private (set) var movies = [MovieTableViewCellDisplayable]()
 	private lazy var isLoading = {return  AtomicType(false)}()
 	
 	init() {
@@ -38,7 +38,7 @@ final class MovieListViewModel {
 	///
 	/// - Parameter index: index of the row
 	/// - Returns: Data to be displated in row
-	func movieDetailForIndexPath(_ index: Int) -> MovieViewModel? {
+	func movieDetailForIndexPath(_ index: Int) -> MovieTableViewCellDisplayable? {
 		
 		if movies.count > index {
 			return movies[index]
@@ -113,10 +113,10 @@ final class MovieListViewModel {
 	/// - Parameters:
 	///   - array: new movie list to  append with/replace the existing
 	///   - shouldClear: true to replace the extinsting
-	func updateDataSourceArray(with array: [MovieViewModel]?, byClearingExistingValues shouldClear: Bool = false)  {
+	func updateDataSourceArray(with array: [MovieTableViewCellDisplayable]?, byClearingExistingValues shouldClear: Bool = false)  {
 		
 		if shouldClear {
-			movies = array ?? [MovieViewModel]()
+			movies = array ?? [MovieTableViewCellDisplayable]()
 		}
 		else if let array = array {
 			movies += array

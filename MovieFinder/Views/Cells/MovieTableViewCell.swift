@@ -38,7 +38,7 @@ class MovieTableViewCell: UITableViewCell {
     }
   }
   
-	func loadData<T: MovieTableViewCellDisplayable>(_ viewModel: T)  {
+	func loadData(_ viewModel: MovieTableViewCellDisplayable)  {
 		
 		nameLabel.text = viewModel.name
 		summaryLabel.text = viewModel.summary
