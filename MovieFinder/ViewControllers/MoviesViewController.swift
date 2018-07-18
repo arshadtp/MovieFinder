@@ -10,7 +10,6 @@ import UIKit
 import ObjectMapper
 
 typealias SearchMovieCompletionBlock = (_ response: [MovieTableViewCellDisplayable]?, _ error: Error?) -> Void
-
 protocol MoviesViewControllerDataSource {
 	
   var currentPage: Int { get }
@@ -21,6 +20,7 @@ protocol MoviesViewControllerDataSource {
 	func checkAndLoadNextPage(name: String, page:Int,_ completionBlock: @escaping SearchMovieCompletionBlock)
 	func updateDataSourceArray(with array: [MovieTableViewCellDisplayable]?, byClearingExistingValues shouldClear: Bool)
 }
+
 class MoviesViewController: UIViewController {
 
 	// ----------------------
@@ -28,7 +28,8 @@ class MoviesViewController: UIViewController {
 	// ----------------------
 	private var viewModel = MovieListViewModel() // View Model
 	@IBOutlet private weak var tableView: UITableView!
-  private lazy var searchController = {
+	@IBOutlet private weak var activityIndicator: UIActivityIndicatorView! // Sample indicator, need to be replaced by new
+	private lazy var searchController = {
     return UISearchController(searchResultsController: self.storyboard?.instantiateViewController(withIdentifier: "MovieCacheResultController"))
   } ()
 
@@ -50,6 +51,8 @@ class MoviesViewController: UIViewController {
   // MARK: - Configurations
   // -------------------------
   private func setUpSearchController()  {
+		
+		(searchController.searchResultsController as? MovieCacheResultController)?.delegate = self
     // Setup the Search Controller
     searchController.searchResultsUpdater = self
     if #available(iOS 9.1, *) {
@@ -60,15 +63,19 @@ class MoviesViewController: UIViewController {
     searchController.searchBar.placeholder = "Search Movies"
     if #available(iOS 11.0, *) {
       navigationItem.searchController = searchController
-      navigationItem.hidesSearchBarWhenScrolling = true
+			view.isUserInteractionEnabled = false
+			self.navigationItem.hidesSearchBarWhenScrolling = false
+			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2) {[unowned self] in
+				self.navigationItem.hidesSearchBarWhenScrolling = true
+				self.view.isUserInteractionEnabled = true
+			}
     } else {
+			self.tableView.tableHeaderView = searchController.searchBar
+			self.tableView.tableHeaderView?.frame = CGRect.init(x: 0, y: 0, width: view.bounds.width, height: 40)
       // Fallback on earlier versions
     }
     definesPresentationContext = true
-    
     searchController.searchBar.delegate = self
-    searchController.hidesNavigationBarDuringPresentation = true
-    searchController.becomeFirstResponder()
   }
   
 	// ----------------------
@@ -76,13 +83,15 @@ class MoviesViewController: UIViewController {
 	// ----------------------
 	private func searchMovies(_ name: String)  {
 		
+		activityIndicator.startAnimating()
     viewModel.searchMovie(name: name, page: 1) { [unowned self] (response, error) in
       
       if let error = error {
         
       } else if let response = response {
 				self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: true)
-				DispatchQueue.main.async {
+				DispatchQueue.main.async { [unowned self] in
+					self.activityIndicator.stopAnimating()
 					self.tableView.reloadData()
 				}
       }
@@ -94,14 +103,16 @@ class MoviesViewController: UIViewController {
 		guard let searchKey = self.searchController.searchBar.text else {
 			return
 		}
+		activityIndicator.startAnimating()
     viewModel.checkAndLoadNextPage(name: searchKey, page: viewModel.currentPage+1) { [unowned self] (response, error) in
       
       if let error = error {
         
       } else if let response = response  {
-				DispatchQueue.main.async {
+				DispatchQueue.main.async { [unowned self] in
 					if response.count > 0 {
-						
+						self.activityIndicator.stopAnimating()
+
 						self.tableView.beginUpdates()
 						
 						var indexPaths = [IndexPath]()
@@ -154,6 +165,7 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate {
   }
 }
 
+
 // -------------------------
 // MARK: - UISearchBar Delegate
 // -------------------------
@@ -176,4 +188,18 @@ extension MoviesViewController: UISearchResultsUpdating {
   func updateSearchResults(for searchController: UISearchController) {
     searchController.searchResultsController?.view.isHidden = false
   }
+}
+// ----------------------
+// MARK: - MovieCacheResultControllerDelegate
+// ----------------------
+
+extension MoviesViewController: MovieCacheResultControllerDelegate {
+	
+	func didSelectCache(_ cache:String) {
+    searchController.searchBar.text = cache
+		searchMovies(cache)
+		searchController.dismiss(animated: true, completion: nil)
+
+	}
+
 }
