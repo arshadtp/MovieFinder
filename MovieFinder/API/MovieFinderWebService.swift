@@ -58,7 +58,7 @@ class MovieFinderWebService {
 		case .success(let data):
 			do {
 				if let responseJSON =  try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
-					debugPrint(responseJSON)
+//          debugPrint(responseJSON)
 					if let model = type.responseModel(responseJSON) {
 						callback(model.response, model.error)
           } else {
@@ -67,11 +67,11 @@ class MovieFinderWebService {
 				}
 			}
 			catch {
-        debugPrint("Request failed with error: \(error)")
+//        debugPrint("Request failed with error: \(error)")
         callback(nil, APIError.init(kind: .dataFormatError, message: error.localizedDescription))
 			}
 		case .failure(let error):
-			debugPrint("Request failed with error: \(error)")
+//      debugPrint("Request failed with error: \(error)")
       callback(nil, APIError.init(kind: .dataFormatError, message: error.localizedDescription))
 		}
 	}

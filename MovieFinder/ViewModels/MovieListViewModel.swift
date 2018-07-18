@@ -57,22 +57,24 @@ final class MovieListViewModel: MoviesViewControllerDataSource {
 	
 	func searchMovie(name: String, page:Int, shouldCache: Bool = true, _ completionBlock: @escaping SearchMovieCompletionBlock)  {
 		
-		// Cancel all pending requests
-		MovieFinderWebService.cancelAllRequests()
-		loadMovies(name: name, page: page) {[weak self] (movieList, error) in
-			if let weakSelf = self {
-				// Set up params
-				weakSelf.resetResultCountInfo(from: movieList)
-				if let movies = movieList?.movies {
-					if shouldCache {
-						MovieCacheManager.addToCache(name: name)
-					}
-					completionBlock(movies.map { return MovieViewModel.init(from: $0)}, error)
-				} else {
-					completionBlock(nil, error)
-				}
-			}
-		}
+      // Cancel all pending requests
+      MovieFinderWebService.cancelAllRequests()
+      isLoading.val = true
+      loadMovies(name: name, page: page) {[weak self] (movieList, error) in
+        if let weakSelf = self {
+          // Set up params
+          weakSelf.resetResultCountInfo(from: movieList)
+          if let movies = movieList?.movies {
+            if shouldCache {
+              MovieCacheManager.addToCache(name: name)
+            }
+            completionBlock(movies.map { return MovieViewModel.init(from: $0)}, error)
+          } else {
+            completionBlock(nil, error)
+          }
+            weakSelf.isLoading.val = false
+        }
+    }
   }
 	
 	
@@ -86,20 +88,23 @@ final class MovieListViewModel: MoviesViewControllerDataSource {
 	func checkAndLoadNextPage(name: String, page:Int,_ completionBlock: @escaping SearchMovieCompletionBlock, didStartLoading:(()->())? = nil)  {
 		
 		// Load only if new page is available, or no other page load is in progress
-    if currentPage < totalPages, !isLoading.val {
-			didStartLoading?()
-			loadMovies(name: name, page: page) {[weak self] (movieList, error) in
-				if let weakSelf = self {
-					// Set up params
-					weakSelf.resetResultCountInfo(from: movieList)
-					if let movies = movieList?.movies {
-						completionBlock(movies.map { return MovieViewModel.init(from: $0)}, error)
-					} else {
-							completionBlock(nil, error)
-					}
-				}
-			}
+      if currentPage < totalPages, !isLoading.val, currentPage < page {
+        didStartLoading?()
+        isLoading.val = true
+        loadMovies(name: name, page: page) {[weak self] (movieList, error) in
+          if let weakSelf = self {
+            // Set up params
+            weakSelf.resetResultCountInfo(from: movieList)
+            if let movies = movieList?.movies {
+              completionBlock(movies.map { return MovieViewModel.init(from: $0)}, error)
+            } else {
+              completionBlock(nil, error)
+            }
+            weakSelf.isLoading.val = false
+          }
+        }
     }
+
   }
 	
 	
@@ -132,9 +137,8 @@ final class MovieListViewModel: MoviesViewControllerDataSource {
 private extension MovieListViewModel {
 	
 	private func loadMovies(name: String, page:Int, _ completionBlock: ((_ response: MovieList?, _ error: Error?) -> Void)?)  {
-		isLoading.val = true
 		let request = MovieRequestType.movieSearch(query: name, page: page)
-		MovieFinderWebService().request(type: request) { [unowned self](response, error) in
+		MovieFinderWebService().request(type: request) { (response, error) in
       
       if error != nil {
         completionBlock?(nil, error)
@@ -143,8 +147,8 @@ private extension MovieListViewModel {
       }
       else {
         // TO DO:// Format error
+        completionBlock?(nil, APIError.init(kind: .noData, message: "No result found"))
       }
-				self.isLoading.val = false
 		}
 
 	}

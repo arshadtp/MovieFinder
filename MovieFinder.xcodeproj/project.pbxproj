@@ -714,6 +714,7 @@
 			baseConfigurationReference = 43ED23389DB02BF82E68F0B4 /* Pods-MovieFinder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GMB73TRG55;
 				INFOPLIST_FILE = MovieFinder/Info.plist;
@@ -723,6 +724,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ars.MovieFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -733,6 +735,7 @@
 			baseConfigurationReference = 0447694B084FBCE3E5C9AC1A /* Pods-MovieFinder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GMB73TRG55;
 				INFOPLIST_FILE = MovieFinder/Info.plist;
@@ -742,6 +745,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ars.MovieFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -99,7 +99,6 @@ class MoviesViewController: UIViewController {
 						self.activityIndicator.stopAnimating()
 						self.tableView.reloadData()
 					}
-
 				}
       }
     }
@@ -120,22 +119,15 @@ class MoviesViewController: UIViewController {
 				DispatchQueue.main.async { [unowned self] in
 					if response.count > 0 {
 						self.activityIndicator.stopAnimating()
-						var indexPaths = [IndexPath]()
-						
-            self.tableView.beginUpdates()
-            let rowPositionToBeInserted = self.viewModel.numberOfRows-1
             self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: false)
-            for i in 0..<response.count {
-              indexPaths.append(IndexPath(row: rowPositionToBeInserted+i, section: 0))
-            }
-            self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.bottom)
-							
-            self.tableView.endUpdates()
+            self.tableView.reloadData()
 					}
 				}
 			}
 		}) { [unowned self] in
-			self.activityIndicator.startAnimating()
+      DispatchQueue.main.async {
+        self.activityIndicator.startAnimating()
+      }
 		}
   }
 }
