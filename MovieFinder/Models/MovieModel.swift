@@ -36,8 +36,11 @@ extension MovieList: APIResponse {
 		}
 		else if let success = JSON["success"] as? Bool, !success {
 			return (nil, APIError.init(kind: .overFlow, message: (JSON["status_message"] as? String) ?? "API failed with unknown error. Please try again later."))
-		}
-		return (Mapper<MovieList>().map(JSON: JSON), nil)
+    } else if let response = Mapper<MovieList>().map(JSON: JSON), let resultCount = response.totalResults, resultCount > 0 {
+      return (response, nil)
+    }
+    return (nil, APIError.init(kind: .noData, message: "No result found"))
+
 	}
 
 }

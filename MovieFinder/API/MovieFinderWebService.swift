@@ -61,17 +61,18 @@ class MovieFinderWebService {
 					debugPrint(responseJSON)
 					if let model = type.responseModel(responseJSON) {
 						callback(model.response, model.error)
-					}
+          } else {
+            callback(nil, APIError.init(kind: .noData, message: "No Result found."))
+          }
 				}
 			}
 			catch {
         debugPrint("Request failed with error: \(error)")
-//				callback(Result.failure(error))
+        callback(nil, APIError.init(kind: .dataFormatError, message: error.localizedDescription))
 			}
 		case .failure(let error):
 			debugPrint("Request failed with error: \(error)")
-//			callback(Result.failure(error))
-
+      callback(nil, APIError.init(kind: .dataFormatError, message: error.localizedDescription))
 		}
 	}
 	

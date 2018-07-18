@@ -87,7 +87,7 @@ final class MovieListViewModel: MoviesViewControllerDataSource {
 		
 		// Load only if new page is available, or no other page load is in progress
     if currentPage < totalPages, !isLoading.val {
-			
+			didStartLoading?()
 			loadMovies(name: name, page: page) {[weak self] (movieList, error) in
 				if let weakSelf = self {
 					// Set up params

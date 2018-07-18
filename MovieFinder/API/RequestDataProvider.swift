@@ -72,6 +72,8 @@ struct APIError:Error  {
 	enum ErrorKind: Error {
 		case noNetworkConnection
 		case overFlow
+    case dataFormatError
+    case noData
 	}
 	
 	let kind: ErrorKind

@@ -39,6 +39,7 @@ class MoviesViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.rowHeight = UITableViewAutomaticDimension
+    activityIndicator.stopAnimating()
     setUpSearchController()
 	}
 
@@ -120,16 +121,16 @@ class MoviesViewController: UIViewController {
 					if response.count > 0 {
 						self.activityIndicator.stopAnimating()
 						var indexPaths = [IndexPath]()
-						for i in 0..<response.count {
-							indexPaths.append(IndexPath(row: self.viewModel.numberOfRows+i, section: 0))
-						}
-						UIView.transition(with: self.tableView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-							self.tableView.beginUpdates()
-							self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: false)
-							self.tableView.insertRows(at: indexPaths, with: .automatic)
-							self.tableView.endUpdates()
+						
+            self.tableView.beginUpdates()
+            let rowPositionToBeInserted = self.viewModel.numberOfRows-1
+            self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: false)
+            for i in 0..<response.count {
+              indexPaths.append(IndexPath(row: rowPositionToBeInserted+i, section: 0))
+            }
+            self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.bottom)
 							
-						}, completion: nil)
+            self.tableView.endUpdates()
 					}
 				}
 			}
@@ -161,8 +162,6 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate {
 		return cell
 	}
 	
-
-
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row == viewModel.numberOfRows - 1 {
       loadNextPage()
