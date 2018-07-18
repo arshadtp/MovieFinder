@@ -30,7 +30,7 @@ class MovieList: Mappable {
 
 extension MovieList: APIResponse {
 	
-	static func parse(JSON: [String : Any]) -> (response: APIResponse?, error: APIError?)? {
+	static func parse(JSON: [String : Any]) -> (response: APIResponse?, error: Error?)? {
 		if let erros = JSON["errors"] as? [String], erros.count > 0 {
 			return (nil, APIError.init(kind: .overFlow, message: erros.first!))
 		}

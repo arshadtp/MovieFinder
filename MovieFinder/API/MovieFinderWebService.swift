@@ -20,7 +20,7 @@ class MovieFinderWebService {
 	///   - type: request type as RequestTypeProtocol
 	///   - completion: response as Response model
 	func request(type: RequestTypeProtocol,
-							 completion: @escaping (_ response:APIResponse?, _ error:APIError?) -> Void ) {
+							 completion: @escaping (_ response:APIResponse?, _ error:Error?) -> Void ) {
 		if NetworkReachabilityManager()!.isReachable {
 				let method = type.getHTTPMethod()
 				let requestURL = URL(string: getURLString(type: type))!
@@ -53,7 +53,7 @@ class MovieFinderWebService {
 	///   - callback: Response model object with success/error details
 	func validateResponse(_ response: DataResponse<Data>,
 												type: RequestTypeProtocol,
-												_ callback: @escaping (_ response:APIResponse?, _ error:APIError?) -> Void) {
+												_ callback: @escaping (_ response:APIResponse?, _ error:Error?) -> Void) {
 		switch response.result {
 		case .success(let data):
 			do {
@@ -62,7 +62,7 @@ class MovieFinderWebService {
 					if let model = type.responseModel(responseJSON) {
 						callback(model.response, model.error)
           } else {
-            callback(nil, APIError.init(kind: .noData, message: "No Result found."))
+            callback(nil, APIError.init(kind: .noData, message: "No Results found."))
           }
 				}
 			}
@@ -72,7 +72,7 @@ class MovieFinderWebService {
 			}
 		case .failure(let error):
 //      debugPrint("Request failed with error: \(error)")
-      callback(nil, APIError.init(kind: .dataFormatError, message: error.localizedDescription))
+      callback(nil, error)
 		}
 	}
 	

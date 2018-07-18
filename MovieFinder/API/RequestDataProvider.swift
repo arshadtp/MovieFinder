@@ -37,7 +37,7 @@ protocol RequestTypeProtocol  {
 	///
 	/// - Parameter json: JSON data
 	/// - Returns: Model
-	func responseModel(_ json: [String : Any]) -> (response:APIResponse?, error:APIError?)?
+	func responseModel(_ json: [String : Any]) -> (response:APIResponse?, error:Error?)?
 }
 
 extension RequestTypeProtocol {
@@ -54,7 +54,7 @@ extension RequestTypeProtocol {
 		return getDataProvider().requestParamsForType(self)
 	}
 	
-	func responseModel(_ response: [String : Any]) -> (response:APIResponse?, error:APIError?)? {
+	func responseModel(_ response: [String : Any]) -> (response:APIResponse?, error:Error?)? {
 		return getDataProvider().responseModel(self,
 																					 response: response)
 	}
@@ -65,7 +65,7 @@ protocol RequestDataProviderProtocol {
 	func requestUrlForType(_ type: RequestTypeProtocol) -> String
 	func requestParamsForType(_ type: RequestTypeProtocol) -> [String: Any]?
 	func responseModel(_ type: RequestTypeProtocol,
-										 response: [String : Any]) -> (response:APIResponse?, error:APIError?)?
+										 response: [String : Any]) -> (response:APIResponse?, error:Error?)?
 }
 
 struct APIError:Error  {
@@ -74,6 +74,7 @@ struct APIError:Error  {
 		case overFlow
     case dataFormatError
     case noData
+    
 	}
 	
 	let kind: ErrorKind
@@ -87,7 +88,7 @@ struct APIError:Error  {
 
 
 protocol APIResponse {
-	static func parse(JSON: [String: Any]) -> (response:APIResponse?, error:APIError?)? 
+	static func parse(JSON: [String: Any]) -> (response:APIResponse?, error:Error?)? 
 }
 
 

@@ -23,7 +23,7 @@ enum MovieRequestType: RequestTypeProtocol {
 struct MovieRequestDataProvider: RequestDataProviderProtocol {
 	
 	func responseModel(_ type: RequestTypeProtocol,
-										 response: [String : Any]) -> (response:APIResponse?, error:APIError?)? {
+										 response: [String : Any]) -> (response:APIResponse?, error:Error?)? {
 		
 		guard let type = type as? MovieRequestType else {
 			fatalError("Expected MovieRequestType")

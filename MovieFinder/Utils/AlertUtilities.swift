@@ -18,6 +18,9 @@ class AlertUtilities {
 	///   - cancelButtonTitle: <#cancelButtonTitle description#>
 	///   - viewController: <#viewController description#>
 	class func showErrorAlert(error: Error, cancelButtonTitle: String, inViewController viewController: UIViewController? = nil) {
+    if  (error as NSError).code == -999 { // Don't
+      return
+    }
 		DispatchQueue.main.async {
 			var message = error.localizedDescription
 			if let apiError = error as? APIError { // If error is kind of
