@@ -42,7 +42,7 @@ class MovieCacheResultController: UITableViewController {
 	
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseIdentifier.cell, for: indexPath)
 		
 		// Configure the cell...
 		cell.textLabel?.text = caches[indexPath.row]

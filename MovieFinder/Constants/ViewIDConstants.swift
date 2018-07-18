@@ -11,6 +11,7 @@ import Foundation
 //  Cell IDs
 struct CellReuseIdentifier {
 	static let movieTableViewCell           = "MovieTableViewCell"
+	static let cell = "Cell"
 }
 
 struct VCIdentifier {

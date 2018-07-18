@@ -30,7 +30,7 @@ struct MovieRequestDataProvider: RequestDataProviderProtocol {
 		}
 		
 		switch type {
-		case .movieSearch(_,_): return MovieList.parse(JSON: response)
+		case .movieSearch(_,_): return MovieListModel.parse(JSON: response)
 		}
 	}
 	

@@ -21,8 +21,14 @@ struct MovieCacheManager {
 		return cache
 	}() // Cache array with recent at last position
 	
+	
+	/// Add data to cache
+	///
+	/// - Parameter name: name to be cached
 	static func addToCache(name: String) {
+		// Making case insensitive
 		let chacheName = name.capitalized
+		// Remove the data if already chache and re-add to top
 		if caches.contains(chacheName) {
 			caches.remove(at: caches.index(of: chacheName)!)
 		}
@@ -32,7 +38,6 @@ struct MovieCacheManager {
 		}
 		UserDefaults.standard.set(caches, forKey: cacheKey)
 		UserDefaults.standard.synchronize()
-
 	}
 	
 }

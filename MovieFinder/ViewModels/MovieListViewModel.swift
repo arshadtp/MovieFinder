@@ -126,7 +126,7 @@ final class MovieListViewModel {
 	// ----------------------
 	// MARK: - Private Methods
 	// ----------------------
-	private func resetResultCountInfo(from movieList: MovieList?)  {
+	private func resetResultCountInfo(from movieList: MovieListModel?)  {
 		currentPage = movieList?.page ?? 1
 		totalResult = movieList?.totalPages ?? 0
 		totalPages = movieList?.totalPages ?? 0
@@ -136,18 +136,18 @@ final class MovieListViewModel {
 
 private extension MovieListViewModel {
 	
-	private func loadMovies(name: String, page:Int, _ completionBlock: ((_ response: MovieList?, _ error: Error?) -> Void)?)  {
+	private func loadMovies(name: String, page:Int, _ completionBlock: ((_ response: MovieListModel?, _ error: Error?) -> Void)?)  {
 		let request = MovieRequestType.movieSearch(query: name, page: page)
 		MovieFinderWebService().request(type: request) { (response, error) in
       
       if error != nil {
         completionBlock?(nil, error)
-      } else if let response = response as? MovieList {
+      } else if let response = response as? MovieListModel {
         completionBlock?(response, error)
       }
       else {
         // TO DO:// Format error
-        completionBlock?(nil, APIError.init(kind: .noData, message: "No result found"))
+        completionBlock?(nil, APIError.init(kind: .noData, message: StringConstants.noResultMessage))
       }
 		}
 
