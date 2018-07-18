@@ -75,9 +75,9 @@ struct APIError:Error  {
 	}
 	
 	let kind: ErrorKind
-	var message: String?
+	var message: String
 	
-	init(kind: ErrorKind, message: String? = nil) {
+	init(kind: ErrorKind, message: String) {
 		self.kind = kind
 		self.message = message
 	}

@@ -32,10 +32,10 @@ extension MovieList: APIResponse {
 	
 	static func parse(JSON: [String : Any]) -> (response: APIResponse?, error: APIError?)? {
 		if let erros = JSON["errors"] as? [String], erros.count > 0 {
-			return (nil, APIError.init(kind: .overFlow, message: erros.first))
+			return (nil, APIError.init(kind: .overFlow, message: erros.first!))
 		}
 		else if let success = JSON["success"] as? Bool, !success {
-			return (nil, APIError.init(kind: .overFlow, message: JSON["status_message"] as? String))
+			return (nil, APIError.init(kind: .overFlow, message: (JSON["status_message"] as? String) ?? "API failed with unknown error. Please try again later."))
 		}
 		return (Mapper<MovieList>().map(JSON: JSON), nil)
 	}

@@ -22,7 +22,11 @@ struct MovieCacheManager {
 	}() // Cache array with recent at last position
 	
 	static func addToCache(name: String) {
-		caches.append(name)
+		let chacheName = name.capitalized
+		if caches.contains(chacheName) {
+			caches.remove(at: caches.index(of: chacheName)!)
+		}
+		caches.append(chacheName)
 		if caches.count > cacheSize {
 			caches = Array(caches[caches.count-cacheSize...caches.count-1])
 		}

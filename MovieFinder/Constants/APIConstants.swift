@@ -18,3 +18,9 @@ struct MovieImageSize {
 	static let large = "w500"
 	static let xtraLarge = "w780"
 }
+
+
+/// Date formats returned from API, UPDATE ONLY IF API CHANGED
+struct APIDateFormats {
+	static let commonFormat = "yyyy-MM-dd"
+}

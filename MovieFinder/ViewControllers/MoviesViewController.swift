@@ -16,8 +16,8 @@ protocol MoviesViewControllerDataSource {
   var numberOfRows: Int {get}
 	
 	func movieDetailForIndexPath(_ index: Int) -> MovieTableViewCellDisplayable?
-	func searchMovie(name: String, page:Int, _ completionBlock: @escaping SearchMovieCompletionBlock)
-	func checkAndLoadNextPage(name: String, page:Int,_ completionBlock: @escaping SearchMovieCompletionBlock)
+	func searchMovie(name: String, page:Int, shouldCache: Bool, _ completionBlock: @escaping SearchMovieCompletionBlock) 
+	func checkAndLoadNextPage(name: String, page:Int,_ completionBlock: @escaping SearchMovieCompletionBlock, didStartLoading:(()->())?)
 	func updateDataSourceArray(with array: [MovieTableViewCellDisplayable]?, byClearingExistingValues shouldClear: Bool)
 }
 
@@ -30,7 +30,7 @@ class MoviesViewController: UIViewController {
 	@IBOutlet private weak var tableView: UITableView!
 	@IBOutlet private weak var activityIndicator: UIActivityIndicatorView! // Sample indicator, need to be replaced by new
 	private lazy var searchController = {
-    return UISearchController(searchResultsController: self.storyboard?.instantiateViewController(withIdentifier: "MovieCacheResultController"))
+    return UISearchController(searchResultsController: self.storyboard?.instantiateViewController(withIdentifier: VCIdentifier.movieCacheResultController))
   } ()
 
 	// ----------------------
@@ -87,12 +87,18 @@ class MoviesViewController: UIViewController {
     viewModel.searchMovie(name: name, page: 1) { [unowned self] (response, error) in
       
       if let error = error {
-        
-      } else if let response = response {
-				self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: true)
 				DispatchQueue.main.async { [unowned self] in
 					self.activityIndicator.stopAnimating()
-					self.tableView.reloadData()
+					AlertUtilities.showErrorAlert(error: error, cancelButtonTitle: "OK", inViewController: self)
+				}
+      } else if let response = response {
+				DispatchQueue.global().async { [unowned self] in
+					self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: true)
+					DispatchQueue.main.async { [unowned self] in
+						self.activityIndicator.stopAnimating()
+						self.tableView.reloadData()
+					}
+
 				}
       }
     }
@@ -103,34 +109,33 @@ class MoviesViewController: UIViewController {
 		guard let searchKey = self.searchController.searchBar.text else {
 			return
 		}
-		activityIndicator.startAnimating()
-    viewModel.checkAndLoadNextPage(name: searchKey, page: viewModel.currentPage+1) { [unowned self] (response, error) in
-      
-      if let error = error {
-        
-      } else if let response = response  {
+		viewModel.checkAndLoadNextPage(name: searchKey, page: viewModel.currentPage+1, { [unowned self] (response, error) in
+			if  error != nil {
+				DispatchQueue.main.async { [unowned self] in
+					self.activityIndicator.stopAnimating()
+				}
+				
+			} else if let response = response  {
 				DispatchQueue.main.async { [unowned self] in
 					if response.count > 0 {
 						self.activityIndicator.stopAnimating()
-
-						self.tableView.beginUpdates()
-						
 						var indexPaths = [IndexPath]()
 						for i in 0..<response.count {
 							indexPaths.append(IndexPath(row: self.viewModel.numberOfRows+i, section: 0))
 						}
-						self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: false)
-
-						
-						self.tableView.insertRows(at: indexPaths, with: .automatic)
-						self.tableView.endUpdates()
-
+						UIView.transition(with: self.tableView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+							self.tableView.beginUpdates()
+							self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: false)
+							self.tableView.insertRows(at: indexPaths, with: .automatic)
+							self.tableView.endUpdates()
+							
+						}, completion: nil)
 					}
-
 				}
-
-      }
-    }
+			}
+		}) { [unowned self] in
+			self.activityIndicator.startAnimating()
+		}
   }
 }
 

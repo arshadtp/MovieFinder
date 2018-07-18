@@ -12,3 +12,7 @@ import Foundation
 struct CellReuseIdentifier {
 	static let movieTableViewCell           = "MovieTableViewCell"
 }
+
+struct VCIdentifier {
+	static let movieCacheResultController = "MovieCacheResultController"
+}
