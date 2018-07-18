@@ -15,6 +15,8 @@ target 'MovieFinder' do
   target 'MovieFinderTests' do
     inherit! :search_paths
     # Pods for testing
+		pod 'ObjectMapper', '~> 3.3'
+
   end
 
   target 'MovieFinderUITests' do

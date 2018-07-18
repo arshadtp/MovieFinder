@@ -21,6 +21,8 @@
 		5339698B20F9F50000D44FD9 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5339698A20F9F50000D44FD9 /* MovieModel.swift */; };
 		535EE9E320FD0AB6005CDDE3 /* MovieCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535EE9E220FD0AB6005CDDE3 /* MovieCacheManager.swift */; };
 		5366EB4820FF8D1800220309 /* MovieListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366EB4720FF8D1800220309 /* MovieListModel.swift */; };
+		5366EB4A20FF933A00220309 /* MovieModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366EB4920FF933A00220309 /* MovieModelTests.swift */; };
+		5366EB4C20FF9F8700220309 /* MovieListModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366EB4B20FF9F8700220309 /* MovieListModelTests.swift */; };
 		5373C48C20FB6A4300501BC9 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373C48B20FB6A4300501BC9 /* MovieTableViewCell.swift */; };
 		5373C49020FB6C6100501BC9 /* ViewIDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373C48F20FB6C6100501BC9 /* ViewIDConstants.swift */; };
 		5373C49220FB6DE700501BC9 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373C49120FB6DE700501BC9 /* MovieListViewModel.swift */; };
@@ -78,6 +80,8 @@
 		5339698A20F9F50000D44FD9 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		535EE9E220FD0AB6005CDDE3 /* MovieCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCacheManager.swift; sourceTree = "<group>"; };
 		5366EB4720FF8D1800220309 /* MovieListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListModel.swift; sourceTree = "<group>"; };
+		5366EB4920FF933A00220309 /* MovieModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModelTests.swift; sourceTree = "<group>"; };
+		5366EB4B20FF9F8700220309 /* MovieListModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListModelTests.swift; sourceTree = "<group>"; };
 		5373C48B20FB6A4300501BC9 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		5373C48F20FB6C6100501BC9 /* ViewIDConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewIDConstants.swift; sourceTree = "<group>"; };
 		5373C49120FB6DE700501BC9 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 		5339696620F9D93600D44FD9 /* MovieFinderTests */ = {
 			isa = PBXGroup;
 			children = (
+				5366EB4B20FF9F8700220309 /* MovieListModelTests.swift */,
+				5366EB4920FF933A00220309 /* MovieModelTests.swift */,
 				5339696720F9D93600D44FD9 /* MovieFinderTests.swift */,
 				5339696920F9D93600D44FD9 /* Info.plist */,
 			);
@@ -342,6 +348,7 @@
 				5339695F20F9D93600D44FD9 /* Sources */,
 				5339696020F9D93600D44FD9 /* Frameworks */,
 				5339696120F9D93600D44FD9 /* Resources */,
+				9509DDBE4DF510036985CD73 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -479,6 +486,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9509DDBE4DF510036985CD73 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MovieFinderTests/Pods-MovieFinderTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MovieFinderTests/Pods-MovieFinderTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C8820C96EF6AFFE5AEA8EF5A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -552,6 +577,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5366EB4A20FF933A00220309 /* MovieModelTests.swift in Sources */,
+				5366EB4C20FF9F8700220309 /* MovieListModelTests.swift in Sources */,
 				5339696820F9D93600D44FD9 /* MovieFinderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -762,6 +789,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6R3U4523N6;
 				INFOPLIST_FILE = MovieFinderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -783,6 +811,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6R3U4523N6;
 				INFOPLIST_FILE = MovieFinderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -803,6 +832,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GMB73TRG55;
 				INFOPLIST_FILE = MovieFinderUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -823,6 +853,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GMB73TRG55;
 				INFOPLIST_FILE = MovieFinderUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
