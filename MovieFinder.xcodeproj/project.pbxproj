@@ -252,7 +252,6 @@
 		5373C48920FB67D900501BC9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5373C48D20FB6A4700501BC9 /* BaseViews */,
 				5373C48A20FB6A1800501BC9 /* Cells */,
 			);
 			path = Views;
@@ -264,13 +263,6 @@
 				5373C48B20FB6A4300501BC9 /* MovieTableViewCell.swift */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		5373C48D20FB6A4700501BC9 /* BaseViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BaseViews;
 			sourceTree = "<group>";
 		};
 		5373C48E20FB6B7400501BC9 /* ViewModels */ = {

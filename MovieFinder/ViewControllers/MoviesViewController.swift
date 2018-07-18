@@ -9,17 +9,7 @@
 import UIKit
 import ObjectMapper
 
-typealias SearchMovieCompletionBlock = (_ response: [MovieTableViewCellDisplayable]?, _ error: Error?) -> Void
-protocol MoviesViewControllerDataSource {
-	
-  var currentPage: Int { get }
-  var numberOfRows: Int {get}
-	
-	func movieDetailForIndexPath(_ index: Int) -> MovieTableViewCellDisplayable?
-	func searchMovie(name: String, page:Int, shouldCache: Bool, _ completionBlock: @escaping SearchMovieCompletionBlock) 
-	func checkAndLoadNextPage(name: String, page:Int,_ completionBlock: @escaping SearchMovieCompletionBlock, didStartLoading:(()->())?)
-	func updateDataSourceArray(with array: [MovieTableViewCellDisplayable]?, byClearingExistingValues shouldClear: Bool)
-}
+typealias SearchMovieCompletionBlock = (_ response: [MovieViewModel]?, _ error: Error?) -> Void
 
 class MoviesViewController: UIViewController {
 
@@ -119,7 +109,7 @@ class MoviesViewController: UIViewController {
 				DispatchQueue.main.async { [unowned self] in
 					if response.count > 0 {
 						self.activityIndicator.stopAnimating()
-            self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: false)
+						self.viewModel.updateDataSourceArray(with: response, byClearingExistingValues: false)
             self.tableView.reloadData()
 					}
 				}

@@ -14,8 +14,8 @@ protocol MovieTableViewCellDisplayable {
 	var name: String? {get}
 	var releaseDate: String? {get}
 	var summary: String? {get}
-
 }
+
 class MovieTableViewCell: UITableViewCell {
 
 	private var viewModel: MovieTableViewCellDisplayable!
@@ -38,7 +38,7 @@ class MovieTableViewCell: UITableViewCell {
     }
   }
   
-	func loadData(_ viewModel: MovieTableViewCellDisplayable)  {
+	func loadData<T: MovieTableViewCellDisplayable>(_ viewModel: T)  {
 		
 		nameLabel.text = viewModel.name
 		summaryLabel.text = viewModel.summary
