@@ -23,6 +23,9 @@
 		5366EB4820FF8D1800220309 /* MovieListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366EB4720FF8D1800220309 /* MovieListModel.swift */; };
 		5366EB4A20FF933A00220309 /* MovieModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366EB4920FF933A00220309 /* MovieModelTests.swift */; };
 		5366EB4C20FF9F8700220309 /* MovieListModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366EB4B20FF9F8700220309 /* MovieListModelTests.swift */; };
+		5366EB5120FFAAF200220309 /* MovieListModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366EB5020FFAAF200220309 /* MovieListModelMock.swift */; };
+		5366EB5320FFACA500220309 /* MovieModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366EB5220FFACA500220309 /* MovieModelMock.swift */; };
+		5366EB5520FFAEB700220309 /* MovieListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366EB5420FFAEB700220309 /* MovieListViewModelTests.swift */; };
 		5373C48C20FB6A4300501BC9 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373C48B20FB6A4300501BC9 /* MovieTableViewCell.swift */; };
 		5373C49020FB6C6100501BC9 /* ViewIDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373C48F20FB6C6100501BC9 /* ViewIDConstants.swift */; };
 		5373C49220FB6DE700501BC9 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373C49120FB6DE700501BC9 /* MovieListViewModel.swift */; };
@@ -82,6 +85,9 @@
 		5366EB4720FF8D1800220309 /* MovieListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListModel.swift; sourceTree = "<group>"; };
 		5366EB4920FF933A00220309 /* MovieModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModelTests.swift; sourceTree = "<group>"; };
 		5366EB4B20FF9F8700220309 /* MovieListModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListModelTests.swift; sourceTree = "<group>"; };
+		5366EB5020FFAAF200220309 /* MovieListModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListModelMock.swift; sourceTree = "<group>"; };
+		5366EB5220FFACA500220309 /* MovieModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModelMock.swift; sourceTree = "<group>"; };
+		5366EB5420FFAEB700220309 /* MovieListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModelTests.swift; sourceTree = "<group>"; };
 		5373C48B20FB6A4300501BC9 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		5373C48F20FB6C6100501BC9 /* ViewIDConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewIDConstants.swift; sourceTree = "<group>"; };
 		5373C49120FB6DE700501BC9 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
@@ -185,8 +191,9 @@
 		5339696620F9D93600D44FD9 /* MovieFinderTests */ = {
 			isa = PBXGroup;
 			children = (
-				5366EB4B20FF9F8700220309 /* MovieListModelTests.swift */,
-				5366EB4920FF933A00220309 /* MovieModelTests.swift */,
+				5366EB4F20FFAAC900220309 /* Mock */,
+				5366EB4E20FFAAC000220309 /* ViewModel */,
+				5366EB4D20FFAA9400220309 /* Model */,
 				5339696720F9D93600D44FD9 /* MovieFinderTests.swift */,
 				5339696920F9D93600D44FD9 /* Info.plist */,
 			);
@@ -264,6 +271,32 @@
 				5339698520F9E1DD00D44FD9 /* MovieFinderWebService.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		5366EB4D20FFAA9400220309 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5366EB4B20FF9F8700220309 /* MovieListModelTests.swift */,
+				5366EB4920FF933A00220309 /* MovieModelTests.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5366EB4E20FFAAC000220309 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5366EB5420FFAEB700220309 /* MovieListViewModelTests.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5366EB4F20FFAAC900220309 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				5366EB5020FFAAF200220309 /* MovieListModelMock.swift */,
+				5366EB5220FFACA500220309 /* MovieModelMock.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		5373C48920FB67D900501BC9 /* Views */ = {
@@ -579,7 +612,10 @@
 			files = (
 				5366EB4A20FF933A00220309 /* MovieModelTests.swift in Sources */,
 				5366EB4C20FF9F8700220309 /* MovieListModelTests.swift in Sources */,
+				5366EB5320FFACA500220309 /* MovieModelMock.swift in Sources */,
+				5366EB5120FFAAF200220309 /* MovieListModelMock.swift in Sources */,
 				5339696820F9D93600D44FD9 /* MovieFinderTests.swift in Sources */,
+				5366EB5520FFAEB700220309 /* MovieListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,13 +783,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GMB73TRG55;
+				DEVELOPMENT_TEAM = 6R3U4523N6;
 				INFOPLIST_FILE = MovieFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ars.MovieFinder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arshad.MovieFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -768,13 +804,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GMB73TRG55;
+				DEVELOPMENT_TEAM = 6R3U4523N6;
 				INFOPLIST_FILE = MovieFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ars.MovieFinder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arshad.MovieFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
