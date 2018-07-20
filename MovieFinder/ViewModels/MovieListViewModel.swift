@@ -9,7 +9,7 @@
 import Foundation
 
 
-final class MovieListViewModel {
+final class MovieListViewModel: MoviesViewControllerDataSource {
 	
 	static let defaultPageNumber: Int = 1
 	private (set) var totalResult: Int = 0

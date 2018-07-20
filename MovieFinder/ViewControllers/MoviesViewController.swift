@@ -7,16 +7,32 @@
 //
 
 import UIKit
-import ObjectMapper
 
-typealias SearchMovieCompletionBlock = (_ response: [MovieViewModel]?, _ error: Error?) -> Void
+/*
+* MoviesViewController:
+  - It accept anything that conforms to MoviesViewControllerDataSource.
+  - - It makes this view controller re-usable.
+*
+*/
+typealias SearchMovieCompletionBlock = (_ response: [MovieTableViewCellDisplayable]?, _ error: Error?) -> Void
+protocol MoviesViewControllerDataSource {
+	
+	var currentPage: Int { get }
+	var numberOfRows: Int {get}
+	
+	func movieDetailForIndexPath(_ index: Int) -> MovieTableViewCellDisplayable?
+	func searchMovie(name: String, page:Int, shouldCache: Bool, _ completionBlock: @escaping SearchMovieCompletionBlock)
+	func checkAndLoadNextPage(name: String, page:Int,_ completionBlock: @escaping SearchMovieCompletionBlock, didStartLoading:(()->())?)
+	func updateDataSourceArray(with array: [MovieTableViewCellDisplayable]?, byClearingExistingValues shouldClear: Bool)
+}
 
 class MoviesViewController: UIViewController {
 
 	// ----------------------
 	// MARK: - Variables
 	// ----------------------
-	private let viewModel = MovieListViewModel() // View Model
+	var viewModel:MoviesViewControllerDataSource = MovieListViewModel() // View Model
+	
 	@IBOutlet private weak var tableView: UITableView!
 	@IBOutlet private weak var activityIndicator: UIActivityIndicatorView! // Sample indicator, need to be replaced by new
 	private lazy var searchController = {
@@ -63,7 +79,6 @@ class MoviesViewController: UIViewController {
     } else {
 			self.tableView.tableHeaderView = searchController.searchBar
 			self.tableView.tableHeaderView?.frame = CGRect.init(x: 0, y: 0, width: view.bounds.width, height: 40)
-      // Fallback on earlier versions
     }
     definesPresentationContext = true
     searchController.searchBar.delegate = self
@@ -75,7 +90,7 @@ class MoviesViewController: UIViewController {
 	private func searchMovies(_ name: String)  {
 		
 		activityIndicator.startAnimating()
-    viewModel.searchMovie(name: name, page: 1) { [unowned self] (response, error) in
+    viewModel.searchMovie(name: name, page: 1, shouldCache: true) { [unowned self] (response, error) in
       
       if let error = error {
 				DispatchQueue.main.async { [unowned self] in
@@ -156,7 +171,6 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate {
     }
   }
 }
-
 
 // -------------------------
 // MARK: - UISearchBar Delegate

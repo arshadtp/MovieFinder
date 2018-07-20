@@ -11,7 +11,7 @@ import XCTest
 class MovieFinderUITests: XCTestCase {
   
   var app: XCUIApplication!
-  let validSearchTerm = "Batman"
+  let validSearchTerm = "IP"
   let invalidSearchTerm = "adadadaadadfgtrbfryhfhfhfdfghdfgffdgdfhgdfsfsdgdsfdgd"
   
   override func setUp() {
@@ -42,6 +42,26 @@ class MovieFinderUITests: XCTestCase {
     enterSearchTerm(validSearchTerm)
     tapSearchButton()
     XCTAssert(waitForResultLoading(), "Data does not loaded correctly")
+		// Load more test: Scroll to last cell
+		
+		let table = app.tables.element(boundBy: 0)
+		let lastCellIndex = table.cells.count-1
+
+		// Get the coordinate for the bottom of the table view
+		let tableBottom = table.coordinate(withNormalizedOffset:CGVector(dx: 0.5, dy: 1.0))
+		
+		// Scroll from tableBottom to new coordinate
+		let scrollVector = CGVector(dx: 0.0, dy: -30.0) // Use whatever vector you like
+		tableBottom.press(forDuration: 0.5, thenDragTo: tableBottom.withOffset(scrollVector))
+
+		
+//		let lastCell = table.cells.element(boundBy:lastCellIndex)
+//		table.scrollToElement(element: lastCell)
+		// wait loads next cell
+		let loadedNewCell = table.cells.element(boundBy:lastCellIndex+3).waitForExistence(timeout: 10)
+		XCTAssert(loadedNewCell, "Loaded new cell")
+
+
   }
   
   func testMovieSearchFailureScenarioWithInvalidQuery() {
@@ -49,6 +69,7 @@ class MovieFinderUITests: XCTestCase {
     enterSearchTerm(invalidSearchTerm)
     tapSearchButton()
     XCTAssert(isErrorShowed(), "Alert didn't showed correctly")
+		
   }
   
   func testIfSearchQueryCachedOnSuccess()  {
@@ -99,3 +120,19 @@ class MovieFinderUITests: XCTestCase {
   }
   
 }
+
+extension XCUIElement {
+	
+	func scrollToElement(element: XCUIElement) {
+		while !element.visible() {
+			swipeUp()
+		}
+	}
+	
+	func visible() -> Bool {
+		guard self.exists && !(self.frame).isEmpty else { return false }
+		return XCUIApplication().windows.element(boundBy: 0).frame.contains(self.frame)
+	}
+	
+}
+
