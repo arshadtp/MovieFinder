@@ -135,6 +135,9 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="cache_list"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="cKq-Ik-uiM" id="R2M-6Y-FLP"/>
                             <outlet property="delegate" destination="cKq-Ik-uiM" id="mLA-ws-vQe"/>
