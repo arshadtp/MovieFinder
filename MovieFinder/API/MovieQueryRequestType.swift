@@ -48,7 +48,7 @@ struct MovieRequestDataProvider: RequestDataProviderProtocol {
 			fatalError("Expected MovieRequestType")
 		}
 		switch type {
-		case .movieSearch(_,_): return "/search/movie/"
+		case .movieSearch(_,_): return APIPaths.searchMovie
 		}
 	}
 	
@@ -60,7 +60,12 @@ struct MovieRequestDataProvider: RequestDataProviderProtocol {
 		switch type {
 			
 		case .movieSearch(let query, let page):
-			return ["query" : query, "page" : page, "api_key": "2696829a81b1b5827d515ff121700838"]
+      
+      guard let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String else {
+        fatalError("Please API_KEY in info.plist.")
+
+      }
+			return ["query" : query, "page" : page, "api_key": apiKey]
 		}
 	}
 }

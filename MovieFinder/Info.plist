@@ -4,6 +4,8 @@
 <dict>
 	<key>BASE_URL</key>
 	<string>http://api.themoviedb.org/3</string>
+	<key>API_KEY</key>
+	<string>2696829a81b1b5827d515ff121700838</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

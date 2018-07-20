@@ -20,6 +20,9 @@ struct URLConstant {
 	static let movieImageBaseURL = "http://image.tmdb.org/t/p/"
 }
 
+struct APIPaths {
+  static let searchMovie = "/search/movie/"
+}
 struct MovieImageSize {
 	static let small = "w92"
 	static let medium = "w185"
