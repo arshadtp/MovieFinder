@@ -9,7 +9,7 @@
 import UIKit
 
 class AlertUtilities {
-	
+	 static let requestCanceledByUser = -999
 	
 	/// Will present and alert view with the given error message.
 	///
@@ -18,7 +18,7 @@ class AlertUtilities {
 	///   - cancelButtonTitle: <#cancelButtonTitle description#>
 	///   - viewController: <#viewController description#>
 	class func showErrorAlert(error: Error, cancelButtonTitle: String, inViewController viewController: UIViewController) {
-    if  (error as NSError).code == -999 { // Don't
+    if  (error as NSError).code ==  requestCanceledByUser { // Don't show error if user cancelled the request
       return
     }
 		DispatchQueue.main.async {

@@ -74,7 +74,7 @@ struct APIError:Error  {
 		case overFlow
     case dataFormatError
     case noData
-    
+    case requestCancelled
 	}
 	
 	let kind: ErrorKind
