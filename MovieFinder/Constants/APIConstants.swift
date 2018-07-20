@@ -9,6 +9,14 @@
 import Foundation
 
 struct URLConstant {
+  
+  // Add new flag in Other Linker Flag section of Project settings
+  #if Debug
+  static let apiBaseURL = "http://api.themoviedb.org/3" // Debug  (Dev/QA server URLs)
+  #elseif Release
+  static let apiBaseURL = "http://api.themoviedb.org/3" // Produnction URL
+  #endif
+  
 	static let movieImageBaseURL = "http://image.tmdb.org/t/p/"
 }
 

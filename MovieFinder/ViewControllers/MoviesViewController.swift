@@ -16,7 +16,7 @@ class MoviesViewController: UIViewController {
 	// ----------------------
 	// MARK: - Variables
 	// ----------------------
-	private var viewModel = MovieListViewModel() // View Model
+	private let viewModel = MovieListViewModel() // View Model
 	@IBOutlet private weak var tableView: UITableView!
 	@IBOutlet private weak var activityIndicator: UIActivityIndicatorView! // Sample indicator, need to be replaced by new
 	private lazy var searchController = {

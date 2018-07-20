@@ -91,18 +91,8 @@ class MovieFinderWebService {
 	///   - type: request type conforming RequestTypeProtocol
 	/// - Returns: Request URL as String
 	func getURLString(type: RequestTypeProtocol) -> String {
-		let urlString =  getbaseURL() + type.getRequestUrl()
+		let urlString =  URLConstant.apiBaseURL + type.getRequestUrl()
 		return urlString
 	}
-	
-	func getbaseURL() -> String {
-	  guard let baseURL =  Bundle.main.infoDictionary!["BASE_URL"] as? String  else {
-			fatalError("Invalid BASE URL")
-		}
-		return baseURL
-
-	}
-
-
 
 }
