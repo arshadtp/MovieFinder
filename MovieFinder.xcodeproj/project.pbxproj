@@ -32,7 +32,6 @@
 		5373C49620FB808B00501BC9 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373C49520FB808A00501BC9 /* APIConstants.swift */; };
 		5373C49820FBBE0C00501BC9 /* AtomicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373C49720FBBE0C00501BC9 /* AtomicType.swift */; };
 		53E7145520FED97A00A3F9F9 /* AlertUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E7145420FED97A00A3F9F9 /* AlertUtilities.swift */; };
-		53E7145720FED9A200A3F9F9 /* CommonUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E7145620FED9A200A3F9F9 /* CommonUtilities.swift */; };
 		53E7145A20FEDE2400A3F9F9 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E7145920FEDE2400A3F9F9 /* Date+Extension.swift */; };
 		53E7145C20FEE1E800A3F9F9 /* CommonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E7145B20FEE1E800A3F9F9 /* CommonConstants.swift */; };
 		8758E76F2213AF111C6B9915 /* Pods_MovieFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB12F78E09664A85E109704C /* Pods_MovieFinderTests.framework */; };
@@ -101,7 +100,6 @@
 		5373C49520FB808A00501BC9 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		5373C49720FBBE0C00501BC9 /* AtomicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicType.swift; sourceTree = "<group>"; };
 		53E7145420FED97A00A3F9F9 /* AlertUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtilities.swift; sourceTree = "<group>"; };
-		53E7145620FED9A200A3F9F9 /* CommonUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUtilities.swift; sourceTree = "<group>"; };
 		53E7145920FEDE2400A3F9F9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		53E7145B20FEE1E800A3F9F9 /* CommonConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonConstants.swift; sourceTree = "<group>"; };
 		681164AA156310229F56BBA6 /* Pods-MovieFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieFinderTests/Pods-MovieFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -346,7 +344,6 @@
 			isa = PBXGroup;
 			children = (
 				53E7145420FED97A00A3F9F9 /* AlertUtilities.swift */,
-				53E7145620FED9A200A3F9F9 /* CommonUtilities.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -654,7 +651,6 @@
 				535EE9E320FD0AB6005CDDE3 /* MovieCacheManager.swift in Sources */,
 				53E7145C20FEE1E800A3F9F9 /* CommonConstants.swift in Sources */,
 				5373C49420FB73AA00501BC9 /* MovieViewModel.swift in Sources */,
-				53E7145720FED9A200A3F9F9 /* CommonUtilities.swift in Sources */,
 				53E7145520FED97A00A3F9F9 /* AlertUtilities.swift in Sources */,
 				5339698420F9DE8600D44FD9 /* RequestDataProvider.swift in Sources */,
 				EF7A18BE20FCBCCE0098B94A /* MovieCacheResultController.swift in Sources */,
