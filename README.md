@@ -8,22 +8,26 @@ MovieFinder is simple app which can be used to search movies. App cahces users l
 Architecture
 --------
 * MVVM pattern is followed.
+**Model
+****MovieListModel
 * App has a seperate Network layer
 
+Unit Tests
+--------
+* App has unit testing with ```95% code converage```.
+* UI and Unit test have been implemented.
 
 Features
 -------
 * Universal app
 * Orientation Support
-*
 
 Libraries Used
 -------
 
 * Alamofire: For handling webservice calls
 * ObjectMapper: Mapping JSON to object
-* SDWebImage: Image loading and Disk image caching
-* 
+* SDWebImage: Image loading and Disk image caching.
 
 Steps to Run 
 -------
