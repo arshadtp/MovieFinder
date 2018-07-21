@@ -27,6 +27,8 @@ extension MovieListModel {
 																													 "release_date": "1966-08-30"]]]
 		
 		let map = Map.init(mappingType: MappingType.fromJSON, JSON: testSuccessfulJSON)
-		return MovieListModel.init(map: map)!
+		let movieListModel = MovieListModel.init(map: map)!
+		movieListModel.mapping(map: map)
+		return movieListModel
 	}
 }
