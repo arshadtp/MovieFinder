@@ -8,8 +8,6 @@ MovieFinder is simple app which can be used to search movies. App cahces users l
 Architecture
 --------
 * MVVM pattern is followed.
-**Model
-****MovieListModel
 * App has a seperate Network layer
 
 Unit Tests
