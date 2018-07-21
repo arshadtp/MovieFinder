@@ -29,9 +29,12 @@ class MovieTableViewCell: UITableViewCell {
 	@IBOutlet weak var summaryLabel: UILabel!
 
   override func prepareForReuse() {
+		// Cancelling prevoius cell image download to avoid showing unwanted image
     self.posterImageView.sd_cancelCurrentImageLoad()
   }
 	
+	
+  /// Method to cancel image download
   func cancelImageDownLoad()  {
     if self.posterImageView != nil {
       self.posterImageView.sd_cancelCurrentImageLoad()
@@ -39,7 +42,6 @@ class MovieTableViewCell: UITableViewCell {
   }
   
 	func loadData(_ viewModel: MovieTableViewCellDisplayable)  {
-		
 		nameLabel.text = viewModel.name
 		summaryLabel.text = viewModel.summary
 		dateLabel.text = viewModel.releaseDate

@@ -57,6 +57,8 @@ class MoviesViewController: UIViewController {
   // -------------------------
   // MARK: - Configurations
   // -------------------------
+	
+  /// Methods configures search bar
   private func setUpSearchController()  {
 		
 		(searchController.searchResultsController as? MovieCacheResultController)?.delegate = self
@@ -160,12 +162,15 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 	
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		// If showing last cell, then load more cells if available
     if indexPath.row == viewModel.numberOfRows - 1 {
       loadNextPage()
     }
   }
   
   func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		// Cancel image donwload if cell is not currently in view
+		// This will reduce the energy consumption and save users data usage
     if let cell = cell as? MovieTableViewCell {
       cell.cancelImageDownLoad()
     }

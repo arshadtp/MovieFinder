@@ -25,6 +25,7 @@ class MovieCacheResultController: UITableViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		// Reverse the cache to show recent search on first
 		caches = MovieCacheManager.caches.reversed()
 		tableView.reloadData()
 	}

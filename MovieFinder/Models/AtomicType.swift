@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+/// Generic type whose value is atomic
 let q = DispatchQueue(label: "print")
 
 struct AtomicType <T> {
